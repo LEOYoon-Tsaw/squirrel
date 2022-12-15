@@ -85,6 +85,8 @@
 		<string>zh-Hant</string>
 		<string>zh-Hans</string>
 	</array>
+	<key>TISIconIsTemplate</key>
+	<true/>
 	<key>tsInputMethodIconFileKey</key>
 	<string>rime.pdf</string>
 </dict>
