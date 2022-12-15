@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "rime-small-16.png",
+      "filename" : "Artboard 16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "rime-small-32.png",
+      "filename" : "Artboard 33.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "rime-32.png",
+      "filename" : "Artboard 32.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "rime-64.png",
+      "filename" : "Artboard 64.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "rime-128.png",
+      "filename" : "Artboard 128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "rime-256.png",
+      "filename" : "Artboard 257.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "rime-256.png",
+      "filename" : "Artboard 256.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "rime-512.png",
+      "filename" : "Artboard 513.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "rime-512.png",
+      "filename" : "Artboard 512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "rime-1024.png",
+      "filename" : "Artboard 1024.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
