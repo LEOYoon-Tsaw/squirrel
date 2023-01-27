@@ -60,17 +60,18 @@ int main(int argc, char *argv[]) {
 
   @autoreleasepool {
     // find the bundle identifier and then initialize the input method server
+    NSBundle *main = [NSBundle mainBundle];
     IMKServer *server __unused =
         [[IMKServer alloc] initWithName:(NSString *)kConnectionName
-                       bundleIdentifier:[NSBundle mainBundle].bundleIdentifier];
+                       bundleIdentifier:main.bundleIdentifier];
 
     // load the bundle explicitly because in this case the input method is a
     // background only application
-    [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+    [main loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication] topLevelObjects:NULL];
 
     // opencc will be configured with relative dictionary paths
     [[NSFileManager defaultManager]
-        changeCurrentDirectoryPath:[NSBundle mainBundle].sharedSupportPath];
+        changeCurrentDirectoryPath:main.sharedSupportPath];
 
     if (NSApp.squirrelAppDelegate.problematicLaunchDetected) {
       NSLog(@"Problematic launch detected!");
