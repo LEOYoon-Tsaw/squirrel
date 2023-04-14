@@ -863,7 +863,7 @@ void removeCorner(NSMutableArray<NSValue *> *highlightedPoints, NSMutableSet<NSN
   [_textView setTextContainerInset:NSMakeSize(textFieldOrigin.x, textFieldOrigin.y)];
 }
 
-- (BOOL)clickAtPoint:(NSPoint)_point index:(NSInteger *)_index {
+- (BOOL)clickAtPoint:(NSPoint)_point index:(NSInteger *)_index preeditIndex:(NSInteger *)_preeditIndex {
   if (CGPathContainsPoint(_shape.path, nil, _point, NO)) {
     NSPoint point = NSMakePoint(_point.x - self.textView.textContainerInset.width,
                                 _point.y - self.textView.textContainerInset.height);
@@ -878,11 +878,19 @@ void removeCorner(NSMutableArray<NSValue *> *highlightedPoints, NSMutableSet<NSN
           point = NSMakePoint(point.x - NSMinX(lineFragment.typographicBounds),
                               point.y - NSMinY(lineFragment.typographicBounds));
           index += [lineFragment characterIndexForPoint:point];
-          for (NSUInteger i = 0; i < _candidateRanges.count; i += 1) {
-            NSRange range = [_candidateRanges[i] rangeValue];
-            if (index >= range.location && index < NSMaxRange(range)) {
-              *_index = i;
-              break;
+          if (index >= _preeditRange.location && index < NSMaxRange(_preeditRange)) {
+            if (_preeditIndex) {
+              *_preeditIndex = index;
+            }
+          } else {
+            for (NSUInteger i = 0; i < _candidateRanges.count; i += 1) {
+              NSRange range = [_candidateRanges[i] rangeValue];
+              if (index >= range.location && index < NSMaxRange(range)) {
+                if (_index) {
+                  *_index = i;
+                }
+                break;
+              }
             }
           }
           break;
@@ -1042,7 +1050,7 @@ NSAttributedString *insert(NSString *separator, NSAttributedString *betweenText)
     case NSEventTypeLeftMouseDown: {
       NSPoint point = [self mousePosition];
       NSInteger index = -1;
-      if ([_view clickAtPoint: point index:&index]) {
+      if ([_view clickAtPoint: point index:&index preeditIndex:nil]) {
         if (index >= 0 && index < _candidates.count) {
           _index = index;
         }
@@ -1051,7 +1059,15 @@ NSAttributedString *insert(NSString *separator, NSAttributedString *betweenText)
     case NSEventTypeLeftMouseUp: {
       NSPoint point = [self mousePosition];
       NSInteger index = -1;
-      if ([_view clickAtPoint: point index:&index]) {
+      NSInteger preeditIndex = -1;
+      if ([_view clickAtPoint: point index:&index preeditIndex:&preeditIndex]) {
+        if (preeditIndex >= 0 && preeditIndex < _preedit.length) {
+          if (preeditIndex < _caretPos) {
+            [_inputController moveCaret:YES];
+          } else if (preeditIndex > _caretPos) {
+            [_inputController moveCaret:NO];
+          }
+        }
         if (index >= 0 && index < _candidates.count && index == _index) {
           [_inputController selectCandidate:index];
         }
@@ -1070,7 +1086,7 @@ NSAttributedString *insert(NSString *separator, NSAttributedString *betweenText)
     case NSEventTypeMouseMoved: {
       NSPoint point = [self mousePosition];
       NSInteger index = -1;
-      if ([_view clickAtPoint: point index:&index]) {
+      if ([_view clickAtPoint: point index:&index preeditIndex:nil]) {
         if (index >= 0 && index < _candidates.count && _cursorIndex != index) {
           [self showPreedit:_preedit selRange:_selRange caretPos:_caretPos candidates:_candidates comments:_comments labels:_labels
                 highlighted:index update:NO];
