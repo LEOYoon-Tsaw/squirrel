@@ -21,8 +21,7 @@ style:
   #color_scheme: solarized_light
   #color_scheme_dark: solarized_dark
 
-  # Deprecated since 0.36, Squirrel 0.15
-  #horizontal: false
+  # horizontal is Deprecated since 0.36, Squirrel 0.15, removed since 1.0.1
   candidate_list_layout: stacked  # stacked | linear
   text_orientation: horizontal  # horizontal | vertical
   inline_preedit: true
@@ -34,6 +33,8 @@ style:
   mutual_exclusive: false
   # Whether to use a translucent background. Only visible when background color is transparent
   translucency: false
+  # Enable to show small arrows that indicates if paging up/down is possible
+  show_paging: false
 
   corner_radius: 7
   hilited_corner_radius: 0
@@ -54,14 +55,14 @@ style:
   # and %c is replaced by "[label]"
   candidate_format: '[label]. [candidate] [comment]'
 
-  # adjust the base line of vertical text
+  # adjust the base line of text
   #base_offset: 0
   font_face: 'Avenir'
-  font_point: 15
+  font_point: 16
   #label_font_face: 'Avenir'
-  label_font_point: 12
+  #label_font_point: 12
   #comment_font_face: 'Avenir'
-  comment_font_point: 15
+  #comment_font_point: 16
 
 preset_color_schemes:
   native:
@@ -385,6 +386,9 @@ app_options:
     ascii_mode: true
   com.google.Chrome:
     # 規避 https://github.com/rime/squirrel/issues/435
+    inline: true
+  com.microsoft.edgemac:
+    # 規避 https://github.com/rime/squirrel/issues/906
     inline: true
   ru.keepcoder.Telegram:
     # 規避 https://github.com/rime/squirrel/issues/475

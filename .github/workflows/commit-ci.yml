@@ -12,11 +12,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Install clang-format
-        run: brew install clang-format
+      - name: Install SwiftLint
+        run: brew install swiftlint
 
       - name: Lint
-        run: make clang-format-lint
+        run: swiftlint
 
       - name: Configure build environment
         run: |
@@ -24,6 +24,12 @@ jobs:
 
       - name: Build Squirrel
         run: ./action-build.sh package
+
+      - name: Install periphery
+        run: brew install peripheryapp/periphery/periphery
+
+      - name: Check Unused Code
+        run: periphery scan --relative-results --skip-build --index-store-path build/Index.noindex/DataStore
 
       - name: Upload Squirrel artifact
         uses: actions/upload-artifact@v4

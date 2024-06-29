@@ -1,0 +1,6 @@
+project: Squirrel.xcodeproj
+schemes:
+- Squirrel
+targets:
+- Squirrel
+format: github-actions

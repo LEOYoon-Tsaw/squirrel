@@ -5,6 +5,8 @@ on:
       - '*'
     branches:
       - master
+    paths:
+      - 'sources/**'
   workflow_dispatch:
 
 jobs:
@@ -19,14 +21,20 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Install clang-format
-        run: brew install clang-format
+      - name: Install SwiftLint
+        run: brew install swiftlint
 
       - name: Lint
-        run: make clang-format-lint
+        run: swiftlint
 
       - name: Build Squirrel
         run: ./action-build.sh archive
+
+      - name: Install periphery
+        run: brew install peripheryapp/periphery/periphery
+
+      - name: Check Unused Code
+        run: periphery scan --relative-results --skip-build --index-store-path build/Index.noindex/DataStore
 
       - name: Build changelog
         id: release_log
