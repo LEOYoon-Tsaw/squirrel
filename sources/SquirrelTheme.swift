@@ -342,4 +342,3 @@ private extension SquirrelTheme {
                    alpha: blend(foreground: foregroundColor.alphaComponent, background: backgroundColor.alphaComponent))
   }
 }
-

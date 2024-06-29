@@ -766,4 +766,3 @@ private extension SquirrelView {
     return (layer, downPath, upPath)
   }
 }
-

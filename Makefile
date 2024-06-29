@@ -118,7 +118,6 @@ $(SPARKLE_FRAMEWORK):
 
 sparkle:
 	xcodebuild -project Sparkle/Sparkle.xcodeproj -configuration Release $(BUILD_SETTINGS) build
-	xcodebuild -project Sparkle/Sparkle.xcodeproj -scheme sign_update -configuration Release -derivedDataPath Sparkle/build $(BUILD_SETTINGS) build
 	$(MAKE) copy-sparkle-framework
 
 $(SPARKLE_SIGN):
@@ -128,7 +127,6 @@ $(SPARKLE_SIGN):
 copy-sparkle-framework:
 	mkdir -p Frameworks
 	cp -RP Sparkle/build/Release/Sparkle.framework Frameworks/
-	cp Sparkle/build/Build/Products/Release/sign_update package/
 
 clean-sparkle:
 	rm -rf Frameworks/* > /dev/null 2>&1 || true
@@ -152,6 +150,7 @@ endif
 package: release $(PACKAGE)
 
 archive: package $(SPARKLE_SIGN)
+	bash package/make_archive
 
 DSTROOT = /Library/Input Methods
 SQUIRREL_APP_ROOT = $(DSTROOT)/Squirrel.app
